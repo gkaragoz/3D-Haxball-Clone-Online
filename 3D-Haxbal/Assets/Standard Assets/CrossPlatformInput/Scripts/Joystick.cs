@@ -73,6 +73,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		public void OnDrag(PointerEventData data)
 		{
+        
 			Vector3 newPos = Vector3.zero;
 
 			if (m_UseX)
@@ -96,8 +97,10 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public void OnPointerUp(PointerEventData data)
 		{
 			transform.position = m_StartPos;
-			UpdateVirtualAxes(m_StartPos);
-		}
+            
+		    UpdateVirtualAxes(m_StartPos);
+            Debug.Log(m_StartPos);
+        }
 
 
 		public void OnPointerDown(PointerEventData data) { }
