@@ -19,14 +19,12 @@ public class PlayerController : MonoBehaviour {
     private float _chargeSpeed;                
     private bool _isFired;
 
-    void OnEnable() {
-        _currentLaunchForce = minLaunchForce;
-        UIManager.instance.aimSlider.value = minLaunchForce;
-    }
-
     void Start () {
         _rb = GetComponent<Rigidbody>();
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+
+        _currentLaunchForce = minLaunchForce;
+        UIManager.instance.aimSlider.value = minLaunchForce;
     }
 
     void FixedUpdate() {
