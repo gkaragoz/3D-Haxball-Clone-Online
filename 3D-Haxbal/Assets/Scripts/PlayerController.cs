@@ -14,17 +14,19 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody _rb;
     private BallController _ballController;
-    private Transform _foot;
+    private Transform _footPoint;
     private float _cachedPlayerAngle;
     private float _currentLaunchForce;
     private float _chargeSpeed;                
     private bool _isFired;
+    private PlayerAnimation _playerAnimation;
 
     void Start () {
         _rb = GetComponent<Rigidbody>();
         _ballController = BallController.instance;
-        _foot = transform.Find("Foot");
+        _footPoint = transform.Find("FootPoint");
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+        _playerAnimation = GetComponent<PlayerAnimation>();
 
         _currentLaunchForce = minLaunchForce;
         UIManager.instance.aimSlider.value = minLaunchForce;
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Shoot() {
         Vector3 ballPosition = _ballController.transform.position;
-        Vector3 footPosition = _foot.transform.position;
+        Vector3 footPosition = _footPoint.transform.position;
 
         if (IsReadyForShoot(footPosition, ballPosition)) {
             Vector3 shootDirection = ballPosition - footPosition;
@@ -84,6 +86,8 @@ public class PlayerController : MonoBehaviour {
         }
 
         _currentLaunchForce = minLaunchForce;
+
+        _playerAnimation.Shoot();
     }
 
     public float GetDistanceOfBall() {
@@ -97,5 +101,9 @@ public class PlayerController : MonoBehaviour {
             return false;
 
         return true;
+    }
+    
+    public float GetVelocity() {
+        return _rb.velocity.magnitude;
     }
 }
