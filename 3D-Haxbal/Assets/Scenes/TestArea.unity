@@ -293,6 +293,16 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114400404055652526, guid: 91c176b6ed9dc524d98ebd36e17e1fe4,
+        type: 2}
+      propertyPath: m_MaxValue
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114400404055652526, guid: 91c176b6ed9dc524d98ebd36e17e1fe4,
+        type: 2}
+      propertyPath: m_Value
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c176b6ed9dc524d98ebd36e17e1fe4, type: 2}
   m_IsPrefabAsset: 0
@@ -556,6 +566,12 @@ Prefab:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 135225048816780908, guid: b7ece0ccf66e9e7408883025a83f361f,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 427718fe9fdd38e44bd4d408af6ed1ae,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ece0ccf66e9e7408883025a83f361f, type: 2}
   m_IsPrefabAsset: 0
@@ -922,7 +938,7 @@ MonoBehaviour:
   movementSpeed: 12
   shootRange: 3
   minLaunchForce: 5
-  maxLaunchForce: 15
+  maxLaunchForce: 35
   maxChargeTime: 0.75
 --- !u!1001 &1483748157
 Prefab:
@@ -1098,7 +1114,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4145822113333566, guid: 0597884eff17b4049a7e0709efb611ec, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -24.69
+      value: -18.69
       objectReference: {fileID: 0}
     - target: {fileID: 4145822113333566, guid: 0597884eff17b4049a7e0709efb611ec, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1133,6 +1149,21 @@ Prefab:
       propertyPath: m_SphereColliders.Array.data[0].first
       value: 
       objectReference: {fileID: 1515428104}
+    - target: {fileID: 137830184495258068, guid: 0597884eff17b4049a7e0709efb611ec,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: -0.00426374
+      objectReference: {fileID: 0}
+    - target: {fileID: 137830184495258068, guid: 0597884eff17b4049a7e0709efb611ec,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.014747351
+      objectReference: {fileID: 0}
+    - target: {fileID: 137830184495258068, guid: 0597884eff17b4049a7e0709efb611ec,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.000000005921038
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0597884eff17b4049a7e0709efb611ec, type: 2}
   m_IsPrefabAsset: 0
