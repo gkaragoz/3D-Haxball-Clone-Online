@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody _rb;
     private BallController _ballController;
+    private Transform _foot;
     private float _cachedPlayerAngle;
     private float _currentLaunchForce;
     private float _chargeSpeed;                
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         _rb = GetComponent<Rigidbody>();
         _ballController = BallController.instance;
+        _foot = transform.Find("Foot");
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
 
         _currentLaunchForce = minLaunchForce;
@@ -72,10 +74,10 @@ public class PlayerController : MonoBehaviour {
 
     private void Shoot() {
         Vector3 ballPosition = _ballController.transform.position;
-        Vector3 playerPosition = transform.position;
+        Vector3 footPosition = _foot.transform.position;
 
-        if (IsReadyForShoot(playerPosition, ballPosition)) {
-            Vector3 shootDirection = ballPosition - playerPosition;
+        if (IsReadyForShoot(footPosition, ballPosition)) {
+            Vector3 shootDirection = ballPosition - footPosition;
             float kickDistance = GetDistanceOfBall();
 
             _ballController.ApplyForce(shootDirection, _currentLaunchForce, kickDistance);
