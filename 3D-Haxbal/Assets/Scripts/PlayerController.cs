@@ -5,7 +5,6 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
-    public Rigidbody ball;
     public float movementSpeed = 2f;
     public float shootRange = 3f;
 
@@ -14,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public float maxChargeTime = 0.75f;
 
     private Rigidbody _rb;
+    private BallController _ballController;
     private float _cachedPlayerAngle;
     private float _currentLaunchForce;
     private float _chargeSpeed;                
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start () {
         _rb = GetComponent<Rigidbody>();
+        _ballController = BallController.instance;
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
 
         _currentLaunchForce = minLaunchForce;
@@ -66,20 +67,21 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Shoot() {
-        Vector3 ballPosition = ball.transform.position;
+        Vector3 ballPosition = _ballController.transform.position;
         Vector3 playerPosition = transform.position;
 
         if (IsReadyForShoot(playerPosition, ballPosition)) {
             Vector3 shootDirection = ballPosition - playerPosition;
+            float kickDistance = GetDistanceOfBall();
 
-            ball.AddForce(2.0f * shootDirection * _currentLaunchForce * (3.0f / GetDistanceOfBall()));
+            _ballController.ApplyForce(shootDirection, _currentLaunchForce, kickDistance);
         }
 
         _currentLaunchForce = minLaunchForce;
     }
 
     public float GetDistanceOfBall() {
-        return Vector3.Distance(transform.position, ball.position);
+        return Vector3.Distance(transform.position, _ballController.transform.position);
     }
 
     public bool IsReadyForShoot(Vector3 playerPosition, Vector3 targetPosition) {
