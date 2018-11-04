@@ -29,11 +29,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-        float vertical = CrossPlatformInputManager.GetAxis("Vertical");
+        Vector2 input = GetInputAxis();
 
-        Rotate(horizontal, vertical);
-        Move(horizontal, vertical);
+        Rotate(input);
+        Move(input);
 
         UIManager.instance.aimSlider.value = minLaunchForce;
 
@@ -52,14 +51,19 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void Move(float horizontal, float vertical) {
-        Vector3 moveVec = new Vector3(horizontal, 0, vertical) * movementSpeed;
+    private Vector2 GetInputAxis() {
+        return new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),
+                            CrossPlatformInputManager.GetAxis("Vertical"));
+    }
+
+    private void Move(Vector2 axis) {
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * movementSpeed;
         _rb.velocity = moveVec;
     }
 
-    private void Rotate(float horizontal, float vertical) {
-        if (horizontal != 0 || vertical != 0) {
-            float myAngle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+    private void Rotate(Vector2 axis) {
+        if (axis != Vector2.zero) {
+            float myAngle = Mathf.Atan2(axis.x, axis.y) * Mathf.Rad2Deg;
             float lerpangle = Mathf.LerpAngle(_cachedPlayerAngle, myAngle, Time.deltaTime * 10);
             _cachedPlayerAngle = lerpangle;
             transform.eulerAngles = new Vector3(0, lerpangle, 0);
