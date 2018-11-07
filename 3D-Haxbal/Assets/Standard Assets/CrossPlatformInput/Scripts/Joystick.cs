@@ -99,7 +99,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 			transform.position = m_StartPos;
             
 		    UpdateVirtualAxes(m_StartPos);
-            Debug.Log(m_StartPos);
+           
         }
 
 

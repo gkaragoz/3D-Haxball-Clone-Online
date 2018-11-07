@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
     private float _movementSpeed;
     private float _kickForce;
+
+
+    public string Name;
+    public int FormaNo;
+    public int TakimNo;
+
 
     public float shootRange = 3f;
 
@@ -24,6 +31,10 @@ public class PlayerController : MonoBehaviour {
     private PlayerAnimation _playerAnimation;
     private CharacterStats _characterStats;
 
+    private Transform _startPosition;
+
+    public Slider aimSlider;
+
     void Start () {
         _rb = GetComponent<Rigidbody>();
         _ballController = BallController.instance;
@@ -36,7 +47,9 @@ public class PlayerController : MonoBehaviour {
         _movementSpeed = _characterStats.MovementSpeed;
         _kickForce = _characterStats.KickForce;
 
-        UIManager.instance.aimSlider.value = minLaunchForce;
+        //  UIManager.instance.aimSlider.value = minLaunchForce;
+        aimSlider.value = minLaunchForce;
+        _startPosition = transform;
     }
 
     void FixedUpdate() {
@@ -45,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         Rotate(input);
         Move(input);
 
-        UIManager.instance.aimSlider.value = minLaunchForce;
+        //.instance.aimSlider.value = minLaunchForce;
 
         if (_currentLaunchForce >= maxLaunchForce && !_isFired) {
             _currentLaunchForce = maxLaunchForce;
@@ -56,7 +69,7 @@ public class PlayerController : MonoBehaviour {
             //Play shoot audio.
         } else if (CrossPlatformInputManager.GetButton("Jump") && !_isFired) {
             _currentLaunchForce += _chargeSpeed * Time.deltaTime;
-            UIManager.instance.aimSlider.value = _currentLaunchForce;
+            aimSlider.value = _currentLaunchForce;
         } else if (CrossPlatformInputManager.GetButtonUp("Jump") && !_isFired) {
             Shoot();
         }
@@ -89,7 +102,7 @@ public class PlayerController : MonoBehaviour {
             Vector3 shootDirection = ballPosition - footPosition;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(shootDirection, _currentLaunchForce, kickDistance);
+            _ballController.ApplyForce(this,shootDirection, _currentLaunchForce*_kickForce, kickDistance);
         }
 
         _currentLaunchForce = minLaunchForce;
