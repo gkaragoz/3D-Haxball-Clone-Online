@@ -1,37 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterStats : MonoBehaviour {
 
-	public float _movementSpeed; //sonrasında private olabilir
-    public float _kickForce;  //sonrasında private olabilir
+    [SerializeField]
+	private float _movementSpeed;
 
-    public float MovementSpeed
-    {
-        get
-        {
+    [SerializeField]
+    private float _currentSpeed;
+
+    [SerializeField]
+    private float _kickForce;
+
+    public float MovementSpeed {
+        get {
             return _movementSpeed;
         }
 
-        set
-        {
+        set {
             _movementSpeed = value;
         }
     }
 
-    public float KickForce
-    {
-        get
-        {
-            return _kickForce;
+    public float CurrentSpeed {
+        get {
+            return _currentSpeed;
         }
 
-        set
-        {
-            _kickForce = value;
+        set {
+            _currentSpeed = value;
         }
     }
 
-	
+    public float KickForce {
+        get {
+            return _kickForce;
+        }
+
+        set {
+            _kickForce = value;
+        }
+    }
 }

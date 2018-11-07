@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 
@@ -8,7 +6,7 @@ public class PlayerAnimation : MonoBehaviour {
     private PlayerController _playerController;
 
     private void Start() {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _playerController = GetComponent <PlayerController>();
     }
 
@@ -16,7 +14,7 @@ public class PlayerAnimation : MonoBehaviour {
         _animator.SetFloat("Velocity", _playerController.GetVelocity());
     }
 
-    public void Shoot() {
-        _animator.SetTrigger("Shoot");
+    public void Shot() {
+        _animator.SetTrigger("Shot");
     }
 }

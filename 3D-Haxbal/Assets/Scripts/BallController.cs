@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallController : MonoBehaviour {
 
     public static BallController instance;
     private RoomManager _roomManager;
 
-    private PlayerController sonplayer;
     private Rigidbody _rb;
     private Transform _startPosition;
 
@@ -23,35 +20,11 @@ public class BallController : MonoBehaviour {
     }
 
     public void ApplyForce(PlayerController playerController, Vector3 direction, float force, float kickDistance) {
-
-        _rb.AddForce(direction * force * (3.0f / kickDistance));
-        sonplayer = playerController;
+        _rb.AddForce(direction.normalized * force * Mathf.Pow(kickDistance, -1));
     }
 
+    public Transform GetStartPosition() {
+        return _startPosition;
+    }
 
-    void OnCollisionEnter(Collision other)
-    {
-       
-        if (other.gameObject.tag == "Player")
-        {
-            sonplayer = other.gameObject.GetComponent<PlayerController>();
-        }
-
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "GoalPost1")
-        {
-            _roomManager.Goal(sonplayer,1);
-        }
-        if (other.gameObject.tag == "GoalPost2")
-        {
-            _roomManager.Goal(sonplayer,2);
-        }
-    }
-    public void SetStartPosition()
-    {
-        transform.position = _startPosition.position;
-        transform.rotation = _startPosition.rotation;
-    }
 }
