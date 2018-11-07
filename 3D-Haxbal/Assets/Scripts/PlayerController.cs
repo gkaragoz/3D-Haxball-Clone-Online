@@ -5,7 +5,9 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
-    public float movementSpeed = 2f;
+    private float _movementSpeed;
+    private float _kickForce;
+
     public float shootRange = 3f;
 
     public float minLaunchForce = 5f;       
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     private float _chargeSpeed;                
     private bool _isFired;
     private PlayerAnimation _playerAnimation;
+    private CharacterStats _characterStats;
 
     void Start () {
         _rb = GetComponent<Rigidbody>();
@@ -27,8 +30,12 @@ public class PlayerController : MonoBehaviour {
         _footPoint = transform.Find("FootPoint");
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
         _playerAnimation = GetComponent<PlayerAnimation>();
-
+        _characterStats = GetComponent<CharacterStats>();
         _currentLaunchForce = minLaunchForce;
+
+        _movementSpeed = _characterStats.MovementSpeed;
+        _kickForce = _characterStats.KickForce;
+
         UIManager.instance.aimSlider.value = minLaunchForce;
     }
 
@@ -61,7 +68,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Move(Vector2 axis) {
-        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * movementSpeed;
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * _movementSpeed;
         _rb.velocity = moveVec;
     }
 

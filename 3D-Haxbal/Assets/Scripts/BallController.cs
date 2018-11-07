@@ -18,6 +18,6 @@ public class BallController : MonoBehaviour {
     }
 
     public void ApplyForce(Vector3 direction, float force, float kickDistance) {
-        _rb.AddForce(2.0f * direction * force * (3.0f / kickDistance));
+        _rb.AddForce(direction * force * (3.0f / kickDistance));
     }
 }
