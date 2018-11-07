@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
-    public float movementSpeed = 2f;
+    private float _movementSpeed;
+    private float _kickForce;
+
+
+    public string Name;
+    public int FormaNo;
+    public int TakimNo;
+
+
     public float shootRange = 3f;
 
     public float minLaunchForce = 5f;       
@@ -20,6 +29,11 @@ public class PlayerController : MonoBehaviour {
     private float _chargeSpeed;                
     private bool _isFired;
     private PlayerAnimation _playerAnimation;
+    private CharacterStats _characterStats;
+
+    private Transform _startPosition;
+
+    public Slider aimSlider;
 
     void Start () {
         _rb = GetComponent<Rigidbody>();
@@ -27,9 +41,15 @@ public class PlayerController : MonoBehaviour {
         _footPoint = transform.Find("FootPoint");
         _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
         _playerAnimation = GetComponent<PlayerAnimation>();
-
+        _characterStats = GetComponent<CharacterStats>();
         _currentLaunchForce = minLaunchForce;
-        UIManager.instance.aimSlider.value = minLaunchForce;
+
+        _movementSpeed = _characterStats.MovementSpeed;
+        _kickForce = _characterStats.KickForce;
+
+        //  UIManager.instance.aimSlider.value = minLaunchForce;
+        aimSlider.value = minLaunchForce;
+        _startPosition = transform;
     }
 
     void FixedUpdate() {
@@ -38,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         Rotate(input);
         Move(input);
 
-        UIManager.instance.aimSlider.value = minLaunchForce;
+        //.instance.aimSlider.value = minLaunchForce;
 
         if (_currentLaunchForce >= maxLaunchForce && !_isFired) {
             _currentLaunchForce = maxLaunchForce;
@@ -49,7 +69,7 @@ public class PlayerController : MonoBehaviour {
             //Play shoot audio.
         } else if (CrossPlatformInputManager.GetButton("Jump") && !_isFired) {
             _currentLaunchForce += _chargeSpeed * Time.deltaTime;
-            UIManager.instance.aimSlider.value = _currentLaunchForce;
+            aimSlider.value = _currentLaunchForce;
         } else if (CrossPlatformInputManager.GetButtonUp("Jump") && !_isFired) {
             Shoot();
         }
@@ -61,7 +81,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Move(Vector2 axis) {
-        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * movementSpeed;
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * _movementSpeed;
         _rb.velocity = moveVec;
     }
 
@@ -82,7 +102,7 @@ public class PlayerController : MonoBehaviour {
             Vector3 shootDirection = ballPosition - footPosition;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(shootDirection, _currentLaunchForce, kickDistance);
+            _ballController.ApplyForce(this,shootDirection, _currentLaunchForce*_kickForce, kickDistance);
         }
 
         _currentLaunchForce = minLaunchForce;
