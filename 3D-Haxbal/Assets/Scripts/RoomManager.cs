@@ -28,11 +28,7 @@ public class RoomManager : MonoBehaviour {
     }
 
     void Start () {
-
-       
         _uIManager = UIManager.instance;
-  
-
     }
 
     void Update () {
@@ -73,7 +69,10 @@ public class RoomManager : MonoBehaviour {
             _uIManager.BilgiRefresh(sonplayer.Name + " Kendi Kalesine Gol Attı");
         }
 
-
-
+        ball.GetComponent<BallController>().SetStartPosition();
+        //  player1.GetComponent<PlayerController>().SetStartPosition();
+        player1.GetComponent<PlayerController>().SetStartPosition();
+        player2.GetComponent<PlayerController>().SetStartPosition();
+        sonplayer.SetStartPosition();
     }
 }

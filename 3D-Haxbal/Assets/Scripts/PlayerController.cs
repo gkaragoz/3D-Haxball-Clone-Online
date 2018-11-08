@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 
         //  UIManager.instance.aimSlider.value = minLaunchForce;
         aimSlider.value = minLaunchForce;
-        _startPosition = transform;
+        _startPosition = this.gameObject.transform;
     }
 
     void FixedUpdate() {
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         Rotate(input);
         Move(input);
 
-        //.instance.aimSlider.value = minLaunchForce;
+      //  Debug.Log(_startPosition);
 
         if (_currentLaunchForce >= maxLaunchForce && !_isFired) {
             _currentLaunchForce = maxLaunchForce;
@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Shoot() {
+        aimSlider.value = minLaunchForce;
         Vector3 ballPosition = _ballController.transform.position;
         Vector3 footPosition = _footPoint.transform.position;
 
@@ -125,5 +126,11 @@ public class PlayerController : MonoBehaviour {
     
     public float GetVelocity() {
         return _rb.velocity.magnitude;
+    }
+    public void SetStartPosition()
+    {
+        transform.position = _startPosition.position;
+        transform.rotation = _startPosition.rotation;
+        Debug.Log(transform.name);
     }
 }
