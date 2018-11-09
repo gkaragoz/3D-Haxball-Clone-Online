@@ -33,7 +33,6 @@ public class PlayerController : CharacterStats {
         CurrentSpeed = MovementSpeed;
     }
 
-<<<<<<< HEAD
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             ApplySlowMovement();
@@ -47,11 +46,6 @@ public class PlayerController : CharacterStats {
             ResetSpeed();
             Shot();
         }
-=======
-        //  UIManager.instance.aimSlider.value = minLaunchForce;
-        aimSlider.value = minLaunchForce;
-        _startPosition = this.gameObject.transform;
->>>>>>> 72738b6854dcf22502b32a30873dd5b36ba1fd20
     }
 
     private void FixedUpdate() {
@@ -73,28 +67,11 @@ public class PlayerController : CharacterStats {
         CurrentSpeed = MovementSpeed;
     }
 
-<<<<<<< HEAD
     private void ShotMultiplier() {
         UIManager.instance.EnableAim();
         _currentShotMultiplier += _multiplierThreshold * Time.deltaTime;
         if (_currentShotMultiplier >= _maxShotMultiplier) {
             _currentShotMultiplier = _maxShotMultiplier;
-=======
-      //  Debug.Log(_startPosition);
-
-        if (_currentLaunchForce >= maxLaunchForce && !_isFired) {
-            _currentLaunchForce = maxLaunchForce;
-            Shoot();
-        } else if (CrossPlatformInputManager.GetButtonDown("Jump")) {
-            _isFired = false;
-            _currentLaunchForce = minLaunchForce;
-            //Play shoot audio.
-        } else if (CrossPlatformInputManager.GetButton("Jump") && !_isFired) {
-            _currentLaunchForce += _chargeSpeed * Time.deltaTime;
-            aimSlider.value = _currentLaunchForce;
-        } else if (CrossPlatformInputManager.GetButtonUp("Jump") && !_isFired) {
-            Shoot();
->>>>>>> 72738b6854dcf22502b32a30873dd5b36ba1fd20
         }
 
         if (onMultiplierThresholdChangedCallback != null)
@@ -118,16 +95,11 @@ public class PlayerController : CharacterStats {
         }
     }
 
-<<<<<<< HEAD
     private void Stop() {
         _rb.velocity = Vector3.zero;
     }
          
     private void Shot() {
-=======
-    private void Shoot() {
-        aimSlider.value = minLaunchForce;
->>>>>>> 72738b6854dcf22502b32a30873dd5b36ba1fd20
         Vector3 ballPosition = _ballController.transform.position;
 
         if (BeAbleToShot(transform.position, ballPosition)) {
@@ -167,17 +139,9 @@ public class PlayerController : CharacterStats {
     public float GetVelocity() {
         return _rb.velocity.magnitude;
     }
-<<<<<<< HEAD
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, shootRange);
-=======
-    public void SetStartPosition()
-    {
-        transform.position = _startPosition.position;
-        transform.rotation = _startPosition.rotation;
-        Debug.Log(transform.name);
->>>>>>> 72738b6854dcf22502b32a30873dd5b36ba1fd20
     }
 }
