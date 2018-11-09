@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    private int _kazanılanmaç;
-    private int _atılangol;
+    public List<RoomManager> allRooms = new List<RoomManager>();
 
+    public void CreateRoom() {
+         
+    }
 
-    void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
 }
