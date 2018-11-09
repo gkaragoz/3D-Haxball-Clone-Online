@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class CameraControlller : MonoBehaviour {
 
-    public float smooth = 0.8f;
+    public float smooth = 1.5f;
 
     private Transform _target;
     private Transform _player;
 
+   
     private void Start() {
         _target = GameObject.Find("Ball").transform;
         _player = GameObject.Find("Player").transform;
@@ -21,7 +22,7 @@ public class CameraControlller : MonoBehaviour {
         Vector3 midpoint = (_target.position + _player.position) / 2f;
         float distance = (_target.position - _player.position).magnitude;
 
-        Vector3 cameraDestination = midpoint - transform.forward * distance * zoomFactorFinder(distance);
+        Vector3 cameraDestination = midpoint - transform.forward * zoomFactorFinder(distance);
 
         cameraDestination.x = transform.position.x;
         transform.position = Vector3.Slerp(transform.position, cameraDestination, smooth * Time.deltaTime);
@@ -31,7 +32,14 @@ public class CameraControlller : MonoBehaviour {
         Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, targetRotation, smooth * Time.deltaTime);
     }
     public float zoomFactorFinder(float distance) {
-        return -0.0455f * distance + 3.13636f; //ref https://keisan.casio.com/exec/system/1223508685
+   
+        //(10,20) (50,30) noktalrında geçen doğru denklemi
+        if (distance > 50)
+            return 30f;
+        if (distance < 10)
+            return 20;
+        else
+            return 0.25f * distance + 17.5f; //ref https://keisan.casio.com/exec/system/1223508685
     }
 
 }    
