@@ -1,59 +1,37 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControlller : MonoBehaviour { 
+public class CameraControlller : MonoBehaviour {
 
-    public List<Transform> allTargets = new List<Transform>();
-    public Vector3 offset;
+    public float smooth = 0.8f;
 
-    public float smoothTime = .5f;
-    public Vector3 velocity;
-
-    private Camera _cam;
+    private Transform _target;
+    private Transform _player;
 
     private void Start() {
-        _cam = GetComponent<Camera>();
+        _target = GameObject.Find("Ball").transform;
+        _player = GameObject.Find("Player").transform;
     }
 
     private void LateUpdate() {
-        if (allTargets.Count == 0)
-            return;
-
-        Move();
+        Zoom();
     }
 
-    private void Move() {
-        Vector3 centerPoint = GetCenterPoint();
+    private void Zoom() {
+        Vector3 midpoint = (_target.position + _player.position) / 2f;
+        float distance = (_target.position - _player.position).magnitude;
 
-        float additionalY = centerPoint.x;
-        float additionalZ = centerPoint.z;
-        Vector3 additionalVector = new Vector3(0f, additionalY, additionalZ);
+        Vector3 cameraDestination = midpoint - transform.forward * distance * zoomFactorFinder(distance);
 
-        Vector3 newPosition = centerPoint + offset + additionalVector;
+        cameraDestination.x = transform.position.x;
+        transform.position = Vector3.Slerp(transform.position, cameraDestination, smooth * Time.deltaTime);
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        Quaternion targetRotation = Quaternion.LookRotation(midpoint - Camera.main.transform.position);
+
+        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, targetRotation, smooth * Time.deltaTime);
     }
-
-    private float GetGreatestDistance() {
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.size.magnitude;
-    }
-
-    private Vector3 GetCenterPoint() {
-        if (allTargets.Count == 1) {
-            return allTargets[0].position;
-        }
-
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.center;
+    public float zoomFactorFinder(float distance) {
+        return -0.0455f * distance + 3.13636f; //ref https://keisan.casio.com/exec/system/1223508685
     }
 
 }    
