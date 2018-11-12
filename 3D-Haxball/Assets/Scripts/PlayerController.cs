@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerController : CharacterStats {
+public class PlayerController : MonoBehaviour {
+
+    public Player player;
 
     public float shootRange = 3f;
     public bool isShoting = false;
@@ -30,7 +32,7 @@ public class PlayerController : CharacterStats {
         _playerAnimation = GetComponent<PlayerAnimation>();
         _startPosition = transform;
 
-        CurrentSpeed = MovementSpeed;
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private void Update() {
@@ -60,11 +62,11 @@ public class PlayerController : CharacterStats {
     }
 
     private void ApplySlowMovement() {
-        CurrentSpeed *= slowingSpeedMultiplier;
+        player.CurrentSpeed *= slowingSpeedMultiplier;
     }
 
     private void ResetSpeed() {
-        CurrentSpeed = MovementSpeed;
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private void ShotMultiplier() {
@@ -84,7 +86,7 @@ public class PlayerController : CharacterStats {
     }
 
     private void Move(Vector2 axis) {
-        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * CurrentSpeed;
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * player.CurrentSpeed;
         _rb.velocity = moveVec;
     }
 
@@ -106,7 +108,7 @@ public class PlayerController : CharacterStats {
             Vector3 shootDirection = ballPosition - transform.position;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(this, shootDirection, KickForce * _currentShotMultiplier, kickDistance);
+            _ballController.ApplyForce(this, shootDirection, player.KickForce * _currentShotMultiplier, kickDistance);
         }
 
         Invoke("Stop", stoppingTime);

@@ -1,13 +1,37 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
+[System.Serializable]
 public class Team {
 
-    public List<Player> allPlayers { get; set; }
-
+    [Header("Team Properties")]
+    [SerializeField]
+    private List<Player> _allPlayers = new List<Player>();
+    [SerializeField]
+    private string _name;
+    [SerializeField]
     private int _maxCapacity;
+    [SerializeField]
     private int _currentCapacity;
+    [SerializeField]
     private int _score;
+    [SerializeField]
     private bool _isStarter;
+
+    public List<Player> AllPlayers {
+        get { return _allPlayers; }
+        set { _allPlayers = value; }
+    }
+        
+    public string Name {
+        get { return _name; }
+        set { _name = value; }
+    }
+
+    public int MaxCapacity {
+        get { return _maxCapacity; }
+        set { _maxCapacity = value; }
+    }
 
     public int Score {
         get { return _score; }
@@ -24,34 +48,35 @@ public class Team {
         set { _currentCapacity = value; }
     }
 
-    public Team(List<Player> allPlayers, int score, bool isStarter, int maxCapacity) {
-        this.allPlayers = allPlayers;
-        this.Score = score;
+    public Team(string name, bool isStarter, int maxCapacity) {
+        this.Name = name;
+        this.AllPlayers = new List<Player>();
+        this.Score = 0;
         this.IsStarter = isStarter;
-        this._maxCapacity = maxCapacity;
+        this.MaxCapacity = maxCapacity;
         this.CurrentCapactiy = 0;
     }
 
     public void AddPlayer(Player player) {
-        allPlayers.Add(player);
+        AllPlayers.Add(player);
         CurrentCapactiy++;
     }
 
     public void RemovePlayer(Player player) {
-        allPlayers.Remove(player);
+        AllPlayers.Remove(player);
         CurrentCapactiy--;
     }
 
     public int GetTotalPlayers() {
-        return allPlayers.Count;
+        return AllPlayers.Count;
     }
 
     public bool IsTeamFull() {
-        return _currentCapacity >= _maxCapacity ? true : false;
+        return CurrentCapactiy >= MaxCapacity ? true : false;
     }
 
     public int GetMaxCapacity() {
-        return _maxCapacity;
+        return MaxCapacity;
     }
 
 }
