@@ -35,7 +35,7 @@ public class SceneInitializer : MonoBehaviour {
 
             if (player.IsMe) {
                 playerObject.GetComponent<PlayerController>().enabled = true;
-                CameraControlller.instance.SetTarget(playerObject);
+                CameraControlller.instance.SetTarget(playerObject.transform);
             }
         }
     }

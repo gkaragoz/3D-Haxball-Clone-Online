@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour {
         int lostGames = 0;
         Enums.CharacterModel characterModelID = Enums.CharacterModel.Cowboy;
 
-        float movementSpeed = 15f;
+        float movementSpeed = 8f;
         float currentSpeed = movementSpeed;
-        float kickForce = 10f;
+        float kickForce = 75f;
 
         Player newPlayer = new Player(name, gold, specialMoney, totalGames, winGames, lostGames, characterModelID, movementSpeed, currentSpeed, kickForce);
         newPlayer.IsMe = true;

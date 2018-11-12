@@ -17,49 +17,41 @@ public class CameraControlller : MonoBehaviour {
     #endregion
 
     public float smooth = 1.5f;
+    public float xMultiplier = -0.5f;
+    public float offset = 35f;
 
-    private GameObject _target;
-    private GameObject _player;
+    private Transform _ballTransform;
+    private Transform _playerTransform;
 
-   
     private void Start() {
-        _target = GameObject.Find("Ball");
+        _ballTransform = GameObject.Find("Ball").transform;
     }
 
     private void LateUpdate() {
-        Zoom();
-    }
-
-    private void Zoom() {
-        if (_target == null || _player == null)
+        if (_ballTransform == null || _playerTransform == null)
             return;
 
-        Vector3 midpoint = (_target.transform.position + _player.transform.position) / 2f;
-        float distance = (_target.transform.position - _player.transform.position).magnitude;
-
-        Vector3 cameraDestination = midpoint - transform.forward * zoomFactorFinder(distance);
-
-        cameraDestination.x = transform.position.x;
-        transform.position = Vector3.Slerp(transform.position, cameraDestination, smooth * Time.deltaTime);
-
-        Quaternion targetRotation = Quaternion.LookRotation(midpoint - Camera.main.transform.position);
-
-        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, targetRotation, smooth * Time.deltaTime);
+        Move();
     }
 
-    public float zoomFactorFinder(float distance) {
-   
-        //(10,20) (50,30) noktalrında geçen doğru denklemi
-        if (distance > 50)
-            return 30f;
-        if (distance < 10)
-            return 20;
-        else
-            return 0.25f * distance + 17.5f; //ref https://keisan.casio.com/exec/system/1223508685
+    public void Move() {
+        Vector3 midpoint = (_ballTransform.position + _playerTransform.position) * 0.5f;
+        float distance = Vector3.Distance(_ballTransform.position, _playerTransform.position);
+
+        Vector3 desiredDestination = midpoint - transform.forward * ZoomFactorFinder(_ballTransform.transform.position.z);
+
+        desiredDestination.x = transform.position.x;
+
+        transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, new Vector3(-1f * _ballTransform.transform.position.z + 40f, 0f, 0f), smooth * Time.deltaTime);
+        transform.position = Vector3.Slerp(transform.position, desiredDestination, smooth * Time.deltaTime);
     }
 
-    public void SetTarget(GameObject playerTarget) {
-        _player = playerTarget;
+    public float ZoomFactorFinder(float distance) {
+        return xMultiplier * distance + offset; //ref https://keisan.casio.com/exec/system/1223508685
+    }
+
+    public void SetTarget(Transform playerTarget) {
+        _playerTransform = playerTarget;
     }
 
 }    

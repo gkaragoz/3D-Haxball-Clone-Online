@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private Vector2 GetInputAxis() {
-        return new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),
-                            CrossPlatformInputManager.GetAxis("Vertical"));
+        return new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"),
+                            CrossPlatformInputManager.GetAxisRaw("Vertical"));
     }
 
     private void Move(Vector2 axis) {
