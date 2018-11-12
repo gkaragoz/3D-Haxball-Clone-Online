@@ -43,7 +43,7 @@ public class Team {
         set { _isStarter = value; }
     }
 
-    public int CurrentCapactiy {
+    public int CurrentCapacity {
         get { return _currentCapacity; }
         set { _currentCapacity = value; }
     }
@@ -54,17 +54,19 @@ public class Team {
         this.Score = 0;
         this.IsStarter = isStarter;
         this.MaxCapacity = maxCapacity;
-        this.CurrentCapactiy = 0;
+        this.CurrentCapacity = 0;
     }
 
     public void AddPlayer(Player player) {
+        player.Team = this;
         AllPlayers.Add(player);
-        CurrentCapactiy++;
+        CurrentCapacity++;
     }
 
     public void RemovePlayer(Player player) {
+        player.Team = null;
         AllPlayers.Remove(player);
-        CurrentCapactiy--;
+        CurrentCapacity--;
     }
 
     public int GetTotalPlayers() {
@@ -72,7 +74,7 @@ public class Team {
     }
 
     public bool IsTeamFull() {
-        return CurrentCapactiy >= MaxCapacity ? true : false;
+        return CurrentCapacity >= MaxCapacity ? true : false;
     }
 
     public int GetMaxCapacity() {

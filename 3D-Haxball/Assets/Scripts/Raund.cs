@@ -8,4 +8,12 @@
         IsCurrentRaund = false;
     }
 
+    public void ActiveRaund() {
+        IsCurrentRaund = true;
+    }
+
+    public void DeactiveRaund() {
+        IsCurrentRaund = false;
+    }
+
 }

@@ -40,7 +40,11 @@ public class GameManager : MonoBehaviour {
         float movementSpeed = 15f;
         float currentSpeed = movementSpeed;
         float kickForce = 10f;
-        return new Player(name, gold, specialMoney, totalGames, winGames, lostGames, characterModelID, movementSpeed, currentSpeed, kickForce);
+
+        Player newPlayer = new Player(name, gold, specialMoney, totalGames, winGames, lostGames, characterModelID, movementSpeed, currentSpeed, kickForce);
+        newPlayer.IsMe = true;
+
+        return newPlayer;
         //}
     }
 
@@ -56,7 +60,25 @@ public class GameManager : MonoBehaviour {
         }
 
         RoomManager.instance.AddPlayer(player, willJoinRoom);
+        AddAnotherP();
+
+        SceneInitializer.instance.Init(willJoinRoom);
         SceneController.instance.LoadScene("GamePlay");
+    }
+
+    void AddAnotherP() {
+        Player newPlayer = new Player("Gökhan", 10, 10, 10, 10, 0, Enums.CharacterModel.Cowboy, 10, 10, 100);
+        Room willJoinRoom = RoomManager.instance.GetAvailableRoom();
+
+        if (willJoinRoom == null) {
+            int maxCapacity = 12;
+            int maxRaund = 3;
+            int raundTime = 1;
+
+            willJoinRoom = RoomManager.instance.CreateRoom(newPlayer.Name, maxCapacity, maxRaund, raundTime);
+        }
+
+        RoomManager.instance.AddPlayer(newPlayer, willJoinRoom);
     }
 
 }

@@ -7,6 +7,8 @@ public class Player : CharacterStats {
 
     [Header("Player Profile")]
     [SerializeField]
+    private bool _isMe;
+    [SerializeField]
     private string _name;
     [SerializeField]
     private int _gold;
@@ -22,6 +24,14 @@ public class Player : CharacterStats {
     private float _winLoseRatio;
     [SerializeField]
     private Enums.CharacterModel _characterModelID;
+
+    private Team _team;
+    private Room _room;
+
+    public bool IsMe {
+        get { return _isMe; }
+        set { _isMe = value; }
+    }
 
     public string Name {
         get { return _name; }
@@ -61,6 +71,16 @@ public class Player : CharacterStats {
     public Enums.CharacterModel CharacterModel {
         get { return _characterModelID; }
         set { _characterModelID = value; }
+    }
+
+    public Team Team {
+        get { return _team; }
+        set { _team = value; }
+    }
+
+    public Room Room {
+        get { return _room; }
+        set { _room = value; }
     }
 
     public Player(string name, 

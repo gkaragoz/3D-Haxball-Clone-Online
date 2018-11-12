@@ -263,7 +263,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789442025019412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9245ed3e35054d4e9a0068e9d569477, type: 3}
   m_Name: 
@@ -272,6 +272,7 @@ MonoBehaviour:
     _movementSpeed: 0
     _currentSpeed: 0
     _kickForce: 0
+    _isMe: 0
     _name: 
     _gold: 0
     _specialMoney: 0

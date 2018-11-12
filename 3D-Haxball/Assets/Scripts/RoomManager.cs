@@ -22,17 +22,13 @@ public class RoomManager : MonoBehaviour {
 
     public List<Room> allRooms = new List<Room>();
 
-    public void AddRoom(Room room) {
-        allRooms.Add(room);
-    }
-
     public Room CreateRoom(string name, 
                            int maxCapacity,
                            int maxRaund, 
                            int raundTime = 3) {
 
         Room room = new Room(name, maxCapacity, maxRaund, raundTime);
-        AddRoom(room);
+        allRooms.Add(room);
 
         return room; 
     }
@@ -41,8 +37,6 @@ public class RoomManager : MonoBehaviour {
         Team team = room.GetAvailableTeam();
         if (team == null) {
             //Add as a spectator.
-            Debug.Log("Can not found available team for " + player.Name);
-            Debug.Log(player.Name + " added as a spectator to " + room.Name);
         } else {
             room.JoinPlayer(team, player);
         }

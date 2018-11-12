@@ -24,7 +24,6 @@ public class CameraControlller : MonoBehaviour {
    
     private void Start() {
         _target = GameObject.Find("Ball");
-        _player = GameObject.Find("Player");
     }
 
     private void LateUpdate() {
