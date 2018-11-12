@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         player = CreatePlayer();
+        SceneInitializer.instance.InitializePreview(player);
     }
 
     public Player CreatePlayer() {

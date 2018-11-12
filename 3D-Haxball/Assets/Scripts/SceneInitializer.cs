@@ -28,7 +28,10 @@ public class SceneInitializer : MonoBehaviour {
             playerObject.GetComponent<PlayerController>().player = player;
             playerObject.name = "(Player) " + player.Name;
 
-            SetModel(playerObject, GameManager.instance.player.CharacterModel);
+            GameObject playerModel = CreateModel(GameManager.instance.player.CharacterModel);
+            playerModel.transform.SetParent(playerObject.transform.GetChild(0));
+            playerModel.transform.localPosition = Vector3.zero;
+            playerModel.transform.localScale = Vector3.one * 0.5f;
 
             if (player.IsMe) {
                 playerObject.GetComponent<PlayerController>().enabled = true;
@@ -37,16 +40,21 @@ public class SceneInitializer : MonoBehaviour {
         }
     }
 
-    public void SetModel(GameObject playerObject, Enums.CharacterModel model) {
+    public void InitializePreview(Player player) {
+        GameObject modelObject = CreateModel(player.CharacterModel);
+        modelObject.transform.SetParent(FindObjectOfType<RotateModels>().transform);
+        modelObject.transform.localPosition = Vector3.zero;
+        modelObject.transform.localScale = Vector3.one * 0.2f;
+    }
+
+    public GameObject CreateModel(Enums.CharacterModel model) {
         switch (model) {
             case Enums.CharacterModel.Cowboy:
-            Transform parentTransform = playerObject.transform.GetChild(0);
-            Instantiate(GetModelByName(model), parentTransform);
-            break;
+            return Instantiate(GetModelByName(model), Vector3.zero, Quaternion.identity);
             case Enums.CharacterModel.None:
-            break;
+            return null;
             default:
-            break;
+            return null;
         }
     }
 
