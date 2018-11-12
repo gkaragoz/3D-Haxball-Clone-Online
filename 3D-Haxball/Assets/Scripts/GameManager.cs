@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour {
 
     public Player CreatePlayer() {
         //Get Player data from Network.
-
         //OnPlayerData {
         //string name = data.name;
         string name = "Cihat";
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour {
         int totalGames = 0;
         int winGames = 0;
         int lostGames = 0;
-        int characterModelID = 0;
+        Enums.CharacterModel characterModelID = Enums.CharacterModel.Cowboy;
 
         float movementSpeed = 15f;
         float currentSpeed = movementSpeed;

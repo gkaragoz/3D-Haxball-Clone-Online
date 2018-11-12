@@ -21,7 +21,7 @@ public class Player : CharacterStats {
     [SerializeField]
     private float _winLoseRatio;
     [SerializeField]
-    private int characterModelID;
+    private Enums.CharacterModel _characterModelID;
 
     public string Name {
         get { return _name; }
@@ -58,9 +58,9 @@ public class Player : CharacterStats {
         set { _winLoseRatio = value; }
     }
 
-    public int CharacterModelID {
-        get { return characterModelID; }
-        set { characterModelID = value; }
+    public Enums.CharacterModel CharacterModel {
+        get { return _characterModelID; }
+        set { _characterModelID = value; }
     }
 
     public Player(string name, 
@@ -69,7 +69,7 @@ public class Player : CharacterStats {
                         int totalGames, 
                         int winGames, 
                         int lostGames,
-                        int characterModelID,
+                        Enums.CharacterModel characterModelID,
                         float movementSpeed,
                         float currentSpeed,
                         float kickForce) : base (movementSpeed, currentSpeed, kickForce) {
@@ -79,6 +79,6 @@ public class Player : CharacterStats {
         this.TotalGames = totalGames;
         this.WinGames = winGames;
         this.LostGames = lostGames;
-        this.CharacterModelID = characterModelID;
+        this.CharacterModel = characterModelID;
     }
 }

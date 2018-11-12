@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114072657513763200}
   - component: {fileID: 114621593539691752}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4960456230036826}
   - component: {fileID: 114779042118182114}
   - component: {fileID: 114001822660822192}
+  - component: {fileID: 114793235956641238}
   - component: {fileID: 54962134770305432}
   m_Layer: 0
   m_Name: Player
@@ -145,8 +146,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789442025019412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4307839157864070}
   - {fileID: 4275382576837814}
@@ -278,12 +279,25 @@ MonoBehaviour:
     _winGames: 0
     _lostGames: 0
     _winLoseRatio: 0
-    characterModelID: 0
-  shootRange: 4
+    _characterModelID: 0
+  shootRange: 3
   isShoting: 0
   stoppingTime: 0.5
-  _maxShotMultiplier: 10
+  _maxShotMultiplier: 0
   _multiplierThreshold: 10
+--- !u!114 &114793235956641238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1789442025019412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2074dff0033c0e94daeee7f141151104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imgShot: {fileID: 114911430137126906}
+  canvas: {fileID: 223442353935112656}
 --- !u!114 &114911430137126906
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,11 +26,19 @@ public class PlayerController : MonoBehaviour {
     private PlayerAnimation _playerAnimation;
     private Transform _startPosition;
 
+    private PlayerHUD _playerHUD;
+
     void Start () {
         _rb = GetComponent<Rigidbody>();
-        _ballController = BallController.instance;
+        _ballController = FindObjectOfType<BallController>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _startPosition = transform;
+        _playerHUD = GetComponentInChildren<PlayerHUD>();
+
+        _minShotMultiplier = 1f;
+        _maxShotMultiplier = 10f;
+        _currentShotMultiplier = _minShotMultiplier;
+        _multiplierThreshold = 10f;
 
         player.CurrentSpeed = player.MovementSpeed;
     }
@@ -70,7 +78,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void ShotMultiplier() {
-        UIManager.instance.EnableAim();
+        _playerHUD.EnableAim();
         _currentShotMultiplier += _multiplierThreshold * Time.deltaTime;
         if (_currentShotMultiplier >= _maxShotMultiplier) {
             _currentShotMultiplier = _maxShotMultiplier;
@@ -114,7 +122,7 @@ public class PlayerController : MonoBehaviour {
         Invoke("Stop", stoppingTime);
         isShoting = true;
         _currentShotMultiplier = _minShotMultiplier;
-        UIManager.instance.DisableAim();
+        _playerHUD.DisableAim();
         _playerAnimation.Shot();
     }
 
