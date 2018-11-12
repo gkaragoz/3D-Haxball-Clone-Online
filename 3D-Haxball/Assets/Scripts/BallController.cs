@@ -2,20 +2,11 @@
 
 public class BallController : MonoBehaviour {
 
-    public static BallController instance;
-    private RoomManager _roomManager;
-
     private Rigidbody _rb;
     private Transform _startPosition;
 
-    private void Awake() {
-        if (instance == null)
-            instance = this;
-    }
-
     private void Start() {
         _rb = GetComponent<Rigidbody>();
-        _roomManager = RoomManager.instance;
         _startPosition = transform;
     }
 

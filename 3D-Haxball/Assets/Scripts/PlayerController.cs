@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerController : CharacterStats {
+public class PlayerController : MonoBehaviour {
+
+    public Player player;
 
     public float shootRange = 3f;
     public bool isShoting = false;
@@ -24,13 +26,21 @@ public class PlayerController : CharacterStats {
     private PlayerAnimation _playerAnimation;
     private Transform _startPosition;
 
+    private PlayerHUD _playerHUD;
+
     void Start () {
         _rb = GetComponent<Rigidbody>();
-        _ballController = BallController.instance;
+        _ballController = FindObjectOfType<BallController>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _startPosition = transform;
+        _playerHUD = GetComponentInChildren<PlayerHUD>();
 
-        CurrentSpeed = MovementSpeed;
+        _minShotMultiplier = 1f;
+        _maxShotMultiplier = 10f;
+        _currentShotMultiplier = _minShotMultiplier;
+        _multiplierThreshold = 10f;
+
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private void Update() {
@@ -60,15 +70,15 @@ public class PlayerController : CharacterStats {
     }
 
     private void ApplySlowMovement() {
-        CurrentSpeed *= slowingSpeedMultiplier;
+        player.CurrentSpeed *= slowingSpeedMultiplier;
     }
 
     private void ResetSpeed() {
-        CurrentSpeed = MovementSpeed;
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private void ShotMultiplier() {
-        UIManager.instance.EnableAim();
+        _playerHUD.EnableAim();
         _currentShotMultiplier += _multiplierThreshold * Time.deltaTime;
         if (_currentShotMultiplier >= _maxShotMultiplier) {
             _currentShotMultiplier = _maxShotMultiplier;
@@ -84,7 +94,7 @@ public class PlayerController : CharacterStats {
     }
 
     private void Move(Vector2 axis) {
-        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * CurrentSpeed;
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * player.CurrentSpeed;
         _rb.velocity = moveVec;
     }
 
@@ -106,13 +116,13 @@ public class PlayerController : CharacterStats {
             Vector3 shootDirection = ballPosition - transform.position;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(this, shootDirection, KickForce * _currentShotMultiplier, kickDistance);
+            _ballController.ApplyForce(this, shootDirection, player.KickForce * _currentShotMultiplier, kickDistance);
         }
 
         Invoke("Stop", stoppingTime);
         isShoting = true;
         _currentShotMultiplier = _minShotMultiplier;
-        UIManager.instance.DisableAim();
+        _playerHUD.DisableAim();
         _playerAnimation.Shot();
     }
 

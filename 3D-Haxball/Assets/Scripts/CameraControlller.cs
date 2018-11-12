@@ -1,59 +1,66 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControlller : MonoBehaviour { 
+public class CameraControlller : MonoBehaviour {
 
-    public List<Transform> allTargets = new List<Transform>();
-    public Vector3 offset;
+    #region Singleton
 
-    public float smoothTime = .5f;
-    public Vector3 velocity;
+    public static CameraControlller instance;
 
-    private Camera _cam;
+    private void Awake() {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+    }
 
+    #endregion
+
+    public float smooth = 1.5f;
+
+    private GameObject _target;
+    private GameObject _player;
+
+   
     private void Start() {
-        _cam = GetComponent<Camera>();
+        _target = GameObject.Find("Ball");
+        _player = GameObject.Find("Player");
     }
 
     private void LateUpdate() {
-        if (allTargets.Count == 0)
+        Zoom();
+    }
+
+    private void Zoom() {
+        if (_target == null || _player == null)
             return;
 
-        Move();
+        Vector3 midpoint = (_target.transform.position + _player.transform.position) / 2f;
+        float distance = (_target.transform.position - _player.transform.position).magnitude;
+
+        Vector3 cameraDestination = midpoint - transform.forward * zoomFactorFinder(distance);
+
+        cameraDestination.x = transform.position.x;
+        transform.position = Vector3.Slerp(transform.position, cameraDestination, smooth * Time.deltaTime);
+
+        Quaternion targetRotation = Quaternion.LookRotation(midpoint - Camera.main.transform.position);
+
+        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, targetRotation, smooth * Time.deltaTime);
     }
 
-    private void Move() {
-        Vector3 centerPoint = GetCenterPoint();
-
-        float additionalY = centerPoint.x;
-        float additionalZ = centerPoint.z;
-        Vector3 additionalVector = new Vector3(0f, additionalY, additionalZ);
-
-        Vector3 newPosition = centerPoint + offset + additionalVector;
-
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+    public float zoomFactorFinder(float distance) {
+   
+        //(10,20) (50,30) noktalrında geçen doğru denklemi
+        if (distance > 50)
+            return 30f;
+        if (distance < 10)
+            return 20;
+        else
+            return 0.25f * distance + 17.5f; //ref https://keisan.casio.com/exec/system/1223508685
     }
 
-    private float GetGreatestDistance() {
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.size.magnitude;
-    }
-
-    private Vector3 GetCenterPoint() {
-        if (allTargets.Count == 1) {
-            return allTargets[0].position;
-        }
-
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.center;
+    public void SetTarget(GameObject playerTarget) {
+        _player = playerTarget;
     }
 
 }    
