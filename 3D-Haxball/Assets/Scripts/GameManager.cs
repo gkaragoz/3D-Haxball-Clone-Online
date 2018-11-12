@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     public Player player;
+    public Room currentRoom;
 
     private void Start() {
         player = CreatePlayer();
@@ -52,33 +53,19 @@ public class GameManager : MonoBehaviour {
         Room willJoinRoom = RoomManager.instance.GetAvailableRoom();
 
         if (willJoinRoom == null) {
+            string roomName = player.Name;
             int maxCapacity = 12;
+            int raundTime = 100;
             int maxRaund = 3;
-            int raundTime = 1;
 
-            willJoinRoom = RoomManager.instance.CreateRoom(player.Name, maxCapacity, maxRaund, raundTime);
+            willJoinRoom = RoomManager.instance.CreateRoom(roomName, maxCapacity, raundTime, maxRaund);
         }
 
         RoomManager.instance.AddPlayer(player, willJoinRoom);
-        AddAnotherP();
+        
+        currentRoom = willJoinRoom;
 
-        SceneInitializer.instance.Init(willJoinRoom);
         SceneController.instance.LoadScene("GamePlay");
-    }
-
-    void AddAnotherP() {
-        Player newPlayer = new Player("Gökhan", 10, 10, 10, 10, 0, Enums.CharacterModel.Cowboy, 10, 10, 100);
-        Room willJoinRoom = RoomManager.instance.GetAvailableRoom();
-
-        if (willJoinRoom == null) {
-            int maxCapacity = 12;
-            int maxRaund = 3;
-            int raundTime = 1;
-
-            willJoinRoom = RoomManager.instance.CreateRoom(newPlayer.Name, maxCapacity, maxRaund, raundTime);
-        }
-
-        RoomManager.instance.AddPlayer(newPlayer, willJoinRoom);
     }
 
 }

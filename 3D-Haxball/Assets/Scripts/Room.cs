@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,11 +14,9 @@ public class Room {
     [SerializeField]
     private int _currentCapacity;
     [SerializeField]
-    private int _currentRaund;
+    private int _raundTime;
     [SerializeField]
     private int _maxRaund;
-    [SerializeField]
-    private int _raundTime;
     [SerializeField]
     private Team _redTeam;
     [SerializeField]
@@ -40,19 +39,14 @@ public class Room {
         set { _currentCapacity = value; }
     }
 
-    public int CurrentRaund {
-        get { return _currentRaund; }
-        set { _currentRaund = value; }
+    public int RaundTime {
+        get { return _raundTime; }
+        set { _raundTime = value; }
     }
 
     public int MaxRaund {
         get { return _maxRaund; }
         set { _maxRaund = value; }
-    }
-
-    public int RaundTime {
-        get { return _raundTime; }
-        set { _raundTime = value; }
     }
 
     public Team RedTeam {
@@ -70,13 +64,12 @@ public class Room {
         set { _isPlaying = value; }
     }
 
-    public Room(string name, int maxCapacity, int maxRaund, int raundTime) {
+    public Room(string name, int maxCapacity, int raundTime, int maxRaund) {
         this.Name = name + "'s Room";
         this.MaxCapacity = maxCapacity;
-        this.CurrentCapacity = 0;
-        this.CurrentRaund = 0;
-        this.MaxRaund = maxRaund;
         this.RaundTime = raundTime;
+        this.MaxRaund = maxRaund;
+        this.CurrentCapacity = 0;
         this.RedTeam = new Team("Red", true, maxCapacity);
         this.BlueTeam = new Team("Blue", false, maxCapacity);
         this.IsPlaying = false;
@@ -92,31 +85,6 @@ public class Room {
         player.Room = this;
         team.AddPlayer(player);
         CurrentCapacity++;
-    }
-
-    //public void ResetRaundTime() {
-    //    RaundTimer.ResetTimer();
-    //}
-
-    public void SetNextRaund() {
-        CurrentRaund++;
-    }
-
-    public bool IsGameFinished() {
-        return CurrentRaund > MaxRaund ? true : false;
-    }
-
-    //public bool IsRaundFinished() {
-    //    return RaundTimer.IsTimerFinished();
-    //}
-
-    public void StartRound() {
-        IsPlaying = true;
-        SetNextRaund();
-    }
-
-    public void StopRaund() {
-        IsPlaying = false;
     }
 
     public bool IsAvailable() {

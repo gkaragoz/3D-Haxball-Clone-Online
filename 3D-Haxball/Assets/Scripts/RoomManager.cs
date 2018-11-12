@@ -24,10 +24,10 @@ public class RoomManager : MonoBehaviour {
 
     public Room CreateRoom(string name, 
                            int maxCapacity,
-                           int maxRaund, 
-                           int raundTime = 3) {
+                           int raundTime,
+                           int maxRaund) {
 
-        Room room = new Room(name, maxCapacity, maxRaund, raundTime);
+        Room room = new Room(name, maxCapacity, raundTime, maxRaund);
         allRooms.Add(room);
 
         return room; 

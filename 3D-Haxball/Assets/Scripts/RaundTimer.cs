@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class RaundTimer : MonoBehaviour {
 
+    public delegate void OnTimerEnded();
+    public OnTimerEnded onTimerEndedCallback;
+
     [Header("Properties")]
     public int minutes = 0;
     public int seconds = 0;
@@ -12,40 +15,23 @@ public class RaundTimer : MonoBehaviour {
     [Header("Initializers")]
     public Text _txtTime;
 
+    private int _raundTime;
     private float _remaningTime;
-    private int _timeSeconds;
 
     public void StartTimer() {
-        StartCoroutine(IStartTimer());
-    }
-
-    public IEnumerator IStartTimer() {
-        Debug.Log("Raund timer has been started: " + minutes + " minutes, " + seconds + " seconds");
-
-        isRunning = true;
-        _remaningTime = GetInitialTime();
-
-        while (isRunning && _remaningTime > 0f) {
-            _remaningTime -= Time.deltaTime;
-            minutes = GetLeftMinutes();
-            seconds = GetLeftSeconds();
-
-            if (_remaningTime > 0)
-                _txtTime.text = minutes + ":" + seconds.ToString("00");
-
-            yield return null;
+        if (!isRunning && _remaningTime != 0) {
+            StartCoroutine(IStartTimer());
         }
-
-        _remaningTime = 0;
-        isRunning = false;
     }
 
     public void SetTime(int seconds) {
-        _timeSeconds = seconds;
-        _remaningTime = _timeSeconds;
+        _raundTime = seconds;
 
-        minutes = Mathf.FloorToInt(seconds / 60f);
-        seconds = Mathf.FloorToInt(seconds % 60f);
+        this.minutes = Mathf.FloorToInt(seconds / 60f);
+        this.seconds = Mathf.FloorToInt(seconds % 60f);
+
+        _remaningTime = GetInitialTime();
+        _txtTime.text = this.minutes + ":" + this.seconds.ToString("00");
     }
 
     public bool IsTimerFinished() {
@@ -63,4 +49,32 @@ public class RaundTimer : MonoBehaviour {
     private int GetLeftSeconds() {
         return Mathf.FloorToInt(_remaningTime % 60f);
     }
+
+    private IEnumerator IStartTimer() {
+        Debug.Log("Raund timer has been started: " + this.minutes + " minutes, " + this.seconds + " seconds");
+
+        isRunning = true;
+        _remaningTime = GetInitialTime();
+
+        while (isRunning) {
+            yield return new WaitForSeconds(1f);
+            _remaningTime -= 1;
+
+            if (_remaningTime > 0) {
+                minutes = GetLeftMinutes();
+                seconds = GetLeftSeconds();
+
+                _txtTime.text = this.minutes + ":" + this.seconds.ToString("00");
+            } else {
+                _remaningTime = 0;
+                isRunning = false;
+            }
+
+            yield return null;
+        }
+
+        if (onTimerEndedCallback != null)
+            onTimerEndedCallback();
+    }
+
 }

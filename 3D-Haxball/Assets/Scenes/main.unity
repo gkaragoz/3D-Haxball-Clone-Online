@@ -1326,6 +1326,87 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 323867666}
   m_CullTransparentMesh: 0
+--- !u!1 &323872189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323872190}
+  - component: {fileID: 323872191}
+  - component: {fileID: 323872192}
+  m_Layer: 0
+  m_Name: RaundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &323872190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323872189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1521436285}
+  m_Father: {fileID: 880787212}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323872191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323872189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee83aa255253cb54f9179b42c89f70de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBetweenRaunds: 1
+  HUD: {fileID: 1521436284}
+  _currentRaund: 0
+  _room:
+    _name: 
+    _maxCapacity: 0
+    _currentCapacity: 0
+    _raundTime: 0
+    _maxRaund: 0
+    _redTeam:
+      _allPlayers: []
+      _name: 
+      _maxCapacity: 0
+      _currentCapacity: 0
+      _score: 0
+      _isStarter: 0
+    _blueTeam:
+      _allPlayers: []
+      _name: 
+      _maxCapacity: 0
+      _currentCapacity: 0
+      _score: 0
+      _isStarter: 0
+    _isPlaying: 0
+--- !u!114 &323872192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 323872189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a610e81ccabe334a8593f67fc33d214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minutes: 0
+  seconds: 20
+  isRunning: 0
+  _txtTime: {fileID: 768704207}
 --- !u!1 &326168250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4128,6 +4209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 954491913}
+  - {fileID: 323872190}
   - {fileID: 1218597423}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -4156,6 +4238,27 @@ MonoBehaviour:
     _lostGames: 0
     _winLoseRatio: 0
     _characterModelID: 0
+  currentRoom:
+    _name: 
+    _maxCapacity: 0
+    _currentCapacity: 0
+    _raundTime: 0
+    _maxRaund: 0
+    _redTeam:
+      _allPlayers: []
+      _name: 
+      _maxCapacity: 0
+      _currentCapacity: 0
+      _score: 0
+      _isStarter: 0
+    _blueTeam:
+      _allPlayers: []
+      _name: 
+      _maxCapacity: 0
+      _currentCapacity: 0
+      _score: 0
+      _isStarter: 0
+    _isPlaying: 0
 --- !u!114 &880787214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4573,7 +4676,6 @@ GameObject:
   m_Component:
   - component: {fileID: 954491913}
   - component: {fileID: 954491915}
-  - component: {fileID: 954491914}
   m_Layer: 0
   m_Name: SceneInitializer
   m_TagString: Untagged
@@ -4590,26 +4692,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1521436285}
+  m_Children: []
   m_Father: {fileID: 880787212}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &954491914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 954491912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a610e81ccabe334a8593f67fc33d214, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minutes: 0
-  seconds: 20
-  isRunning: 0
-  _txtTime: {fileID: 768704207}
 --- !u!114 &954491915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5625,7 +5711,7 @@ RectTransform:
   m_Children:
   - {fileID: 30021164}
   m_Father: {fileID: 880787212}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7109,7 +7195,7 @@ GameObject:
   - component: {fileID: 1521436287}
   - component: {fileID: 1521436286}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7127,7 +7213,7 @@ RectTransform:
   m_Children:
   - {fileID: 620914004}
   - {fileID: 577243170}
-  m_Father: {fileID: 954491913}
+  m_Father: {fileID: 323872190}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

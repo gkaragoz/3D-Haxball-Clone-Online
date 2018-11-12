@@ -22,21 +22,8 @@ public class SceneInitializer : MonoBehaviour {
     public GameObject[] modelPrefabs;
     public GameObject cameraPrefab;
 
-    private RaundTimer _raundTimer;
-    private Room _room;
-
-    private void Start() {
-        _raundTimer = GetComponent<RaundTimer>();
-    }
-
-    public void Init(Room room) {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        this._room = room;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
     public void InstantiatePlayer() {
-        foreach (Player player in _room.GetAllPlayers()) {
+        foreach (Player player in GameManager.instance.currentRoom.GetAllPlayers()) {
             GameObject playerObject = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
             playerObject.GetComponent<PlayerController>().player = player;
             playerObject.name = "(Player) " + player.Name;
@@ -48,10 +35,6 @@ public class SceneInitializer : MonoBehaviour {
                 CameraControlller.instance.SetTarget(playerObject);
             }
         }
-    }
-
-    public void SetRaundTime() {
-        _raundTimer.SetTime(_room.RaundTime);
     }
 
     public void SetModel(GameObject playerObject, Enums.CharacterModel model) {
@@ -77,18 +60,18 @@ public class SceneInitializer : MonoBehaviour {
         return modelPrefabs[0];
     }
 
-    void OnEnable() {
+    private void OnEnable() {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.buildIndex == 0) {
             return;
         }
 
-        SetRaundTime();
-
         InstantiatePlayer();
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 }

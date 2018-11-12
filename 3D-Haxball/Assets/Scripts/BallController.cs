@@ -18,4 +18,10 @@ public class BallController : MonoBehaviour {
         return _startPosition;
     }
 
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Player") {
+            FindObjectOfType<RaundManager>().StartRaund();
+        }
+    }
+
 }
