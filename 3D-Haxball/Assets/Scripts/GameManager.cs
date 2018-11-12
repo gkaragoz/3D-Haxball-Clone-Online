@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
         }
 
         RoomManager.instance.AddPlayer(player, willJoinRoom);
-        //Change scene to gameplay.
+        SceneController.instance.LoadScene("GamePlay");
     }
 
 }
