@@ -24,7 +24,7 @@ public class SceneInitializer : MonoBehaviour {
 
     public void InstantiatePlayer() {
         foreach (Player player in GameManager.instance.currentRoom.GetAllPlayers()) {
-            GameObject playerObject = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+            GameObject playerObject = Instantiate(playerPrefab, new Vector3(-10, 0f, 0f), Quaternion.identity);
             playerObject.GetComponent<PlayerController>().player = player;
             playerObject.name = "(Player) " + player.Name;
 

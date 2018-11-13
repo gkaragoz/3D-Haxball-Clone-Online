@@ -1,0 +1,411 @@
+fileFormatVersion: 2
+guid: 1100df028c31b1840bc7d1ce029a8efa
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arena
+    100002: Big Light
+    100004: Big Light.001
+    100006: Big Light.002
+    100008: Big Light.003
+    100010: Big Light.004
+    100012: Big Light.005
+    100014: //RootNode
+    100016: Cube.025
+    100018: Cube.026
+    100020: Cube.027
+    100022: Cube.037
+    100024: Cube.038
+    100026: Cube.039
+    100028: Cube.040
+    100030: Cube.041
+    100032: Cube.042
+    100034: Cube.043
+    100036: Cube.044
+    100038: Cube.045
+    100040: Cube.046
+    100042: Cube.047
+    100044: Cube.048
+    100046: Cube.049
+    100048: Cube.050
+    100050: Cube.051
+    100052: Cube.052
+    100054: Cube.053
+    100056: Cube.054
+    100058: Cube.055
+    100060: Cube.056
+    100062: Cube.057
+    100064: Cube.058
+    100066: Cube.059
+    100068: Cube.062
+    100070: GoalPost
+    100072: GoalPost.001
+    100074: Platform
+    100076: Sadium Big Left
+    100078: Stadium Big Right
+    100080: Stadium Bottom
+    100082: Stadium Top
+    100084: Tree 1
+    100086: Tree1
+    100088: Tree2
+    100090: Tree3
+    400000: Arena
+    400002: Big Light
+    400004: Big Light.001
+    400006: Big Light.002
+    400008: Big Light.003
+    400010: Big Light.004
+    400012: Big Light.005
+    400014: //RootNode
+    400016: Cube.025
+    400018: Cube.026
+    400020: Cube.027
+    400022: Cube.037
+    400024: Cube.038
+    400026: Cube.039
+    400028: Cube.040
+    400030: Cube.041
+    400032: Cube.042
+    400034: Cube.043
+    400036: Cube.044
+    400038: Cube.045
+    400040: Cube.046
+    400042: Cube.047
+    400044: Cube.048
+    400046: Cube.049
+    400048: Cube.050
+    400050: Cube.051
+    400052: Cube.052
+    400054: Cube.053
+    400056: Cube.054
+    400058: Cube.055
+    400060: Cube.056
+    400062: Cube.057
+    400064: Cube.058
+    400066: Cube.059
+    400068: Cube.062
+    400070: GoalPost
+    400072: GoalPost.001
+    400074: Platform
+    400076: Sadium Big Left
+    400078: Stadium Big Right
+    400080: Stadium Bottom
+    400082: Stadium Top
+    400084: Tree 1
+    400086: Tree1
+    400088: Tree2
+    400090: Tree3
+    2100000: Direk
+    2100002: Material.001
+    2100004: White
+    2100006: SoftGreen
+    2100008: HardGreen
+    2100010: Brick
+    2100012: DARK RED
+    2100014: Blue
+    2100016: Cream
+    2100018: Gray.001
+    2100020: Gray
+    2100022: Green
+    2100024: Dark Brown
+    2100026: Dark Green
+    2100028: Road
+    2100030: Dark Blue
+    2300000: Arena
+    2300002: Big Light
+    2300004: Big Light.001
+    2300006: Big Light.002
+    2300008: Big Light.003
+    2300010: Big Light.004
+    2300012: Big Light.005
+    2300014: Cube.025
+    2300016: Cube.026
+    2300018: Cube.027
+    2300020: Cube.037
+    2300022: Cube.038
+    2300024: Cube.039
+    2300026: Cube.040
+    2300028: Cube.041
+    2300030: Cube.042
+    2300032: Cube.043
+    2300034: Cube.044
+    2300036: Cube.045
+    2300038: Cube.046
+    2300040: Cube.047
+    2300042: Cube.048
+    2300044: Cube.049
+    2300046: Cube.050
+    2300048: Cube.051
+    2300050: Cube.052
+    2300052: Cube.053
+    2300054: Cube.054
+    2300056: Cube.055
+    2300058: Cube.056
+    2300060: Cube.057
+    2300062: Cube.058
+    2300064: Cube.059
+    2300066: Cube.062
+    2300068: GoalPost
+    2300070: GoalPost.001
+    2300072: Platform
+    2300074: Sadium Big Left
+    2300076: Stadium Big Right
+    2300078: Stadium Bottom
+    2300080: Stadium Top
+    2300082: Tree 1
+    2300084: Tree1
+    2300086: Tree2
+    2300088: Tree3
+    3300000: Arena
+    3300002: Big Light
+    3300004: Big Light.001
+    3300006: Big Light.002
+    3300008: Big Light.003
+    3300010: Big Light.004
+    3300012: Big Light.005
+    3300014: Cube.025
+    3300016: Cube.026
+    3300018: Cube.027
+    3300020: Cube.037
+    3300022: Cube.038
+    3300024: Cube.039
+    3300026: Cube.040
+    3300028: Cube.041
+    3300030: Cube.042
+    3300032: Cube.043
+    3300034: Cube.044
+    3300036: Cube.045
+    3300038: Cube.046
+    3300040: Cube.047
+    3300042: Cube.048
+    3300044: Cube.049
+    3300046: Cube.050
+    3300048: Cube.051
+    3300050: Cube.052
+    3300052: Cube.053
+    3300054: Cube.054
+    3300056: Cube.055
+    3300058: Cube.056
+    3300060: Cube.057
+    3300062: Cube.058
+    3300064: Cube.059
+    3300066: Cube.062
+    3300068: GoalPost
+    3300070: GoalPost.001
+    3300072: Platform
+    3300074: Sadium Big Left
+    3300076: Stadium Big Right
+    3300078: Stadium Bottom
+    3300080: Stadium Top
+    3300082: Tree 1
+    3300084: Tree1
+    3300086: Tree2
+    3300088: Tree3
+    4300000: GoalPost.001
+    4300002: GoalPost
+    4300004: Cube.062
+    4300006: Arena
+    4300008: Stadium Bottom
+    4300010: Cube.025
+    4300012: Cube.026
+    4300014: Stadium Big Right
+    4300016: Cube.059
+    4300018: Cube.058
+    4300020: Cube.057
+    4300022: Cube.056
+    4300024: Cube.055
+    4300026: Cube.054
+    4300028: Cube.053
+    4300030: Cube.052
+    4300032: Cube.051
+    4300034: Cube.050
+    4300036: Cube.049
+    4300038: Cube.048
+    4300040: Cube.047
+    4300042: Cube.046
+    4300044: Cube.045
+    4300046: Cube.044
+    4300048: Cube.043
+    4300050: Cube.042
+    4300052: Cube.041
+    4300054: Cube.040
+    4300056: Cube.039
+    4300058: Cube.038
+    4300060: Cube.037
+    4300062: Cube.027
+    4300064: Big Light.001
+    4300066: Big Light
+    4300068: Tree1
+    4300070: Tree 1
+    4300072: Tree2
+    4300074: Tree3
+    4300076: Big Light.004
+    4300078: Big Light.003
+    4300080: Big Light.002
+    4300082: Big Light.005
+    4300084: Platform
+    4300086: Stadium Top
+    4300088: Sadium Big Left
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue
+    second: {fileID: 2100000, guid: 1ded971295d6905499821b87970d7330, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brick
+    second: {fileID: 2100000, guid: 5e9fad56d89ce9248a3f39fc699b8e97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cream
+    second: {fileID: 2100000, guid: 5fa432008b19190418b3a2f42dbb665d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DARK RED
+    second: {fileID: 2100000, guid: e0e27818c0cf1a14b883b1d2c4b74b8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Blue
+    second: {fileID: 2100000, guid: 8e55e1f7d918e964b96736b75cbf1c12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Brown
+    second: {fileID: 2100000, guid: 429e0f83f1c5c694a914883317227db9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Green
+    second: {fileID: 2100000, guid: ce61b45ddd6bbe54b842f8d7c4966108, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Direk
+    second: {fileID: 2100000, guid: cc3a78faa7894294bb638cf12f12e324, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gray
+    second: {fileID: 2100000, guid: 7349687f3194f784fa1ac6f7c27e0847, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Gray.001
+    second: {fileID: 2100000, guid: 7a6775e37a2abe04794b377e21b4bc8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: 2100000, guid: 42ecee627bff4fd408e03d5485a20977, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HardGreen
+    second: {fileID: 2100000, guid: 62260d63255f86d459db11d66696c8b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 6e3f425dc12a4f946931568c8200111e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Road
+    second: {fileID: 2100000, guid: 934a66d2bc1278c49986ebeae0792dd7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SoftGreen
+    second: {fileID: 2100000, guid: c27a960258ee98e47b7395b45d660aec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 2d76328fb8c32ca4898fef7cdf8b2fd5, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
