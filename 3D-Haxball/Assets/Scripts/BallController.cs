@@ -2,20 +2,11 @@
 
 public class BallController : MonoBehaviour {
 
-    public static BallController instance;
-    private RoomManager _roomManager;
-
     private Rigidbody _rb;
     private Transform _startPosition;
 
-    private void Awake() {
-        if (instance == null)
-            instance = this;
-    }
-
     private void Start() {
         _rb = GetComponent<Rigidbody>();
-        _roomManager = RoomManager.instance;
         _startPosition = transform;
     }
 
@@ -25,6 +16,12 @@ public class BallController : MonoBehaviour {
 
     public Transform GetStartPosition() {
         return _startPosition;
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Player") {
+            FindObjectOfType<RaundManager>().StartRaund();
+        }
     }
 
 }

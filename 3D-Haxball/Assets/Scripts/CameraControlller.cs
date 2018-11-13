@@ -1,59 +1,44 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraControlller : MonoBehaviour { 
+public class CameraControlller : MonoBehaviour {
 
-    public List<Transform> allTargets = new List<Transform>();
-    public Vector3 offset;
+    #region Singleton
 
-    public float smoothTime = .5f;
-    public Vector3 velocity;
+    public static CameraControlller instance;
 
-    private Camera _cam;
-
-    private void Start() {
-        _cam = GetComponent<Camera>();
+    private void Awake() {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
     }
 
-    private void LateUpdate() {
-        if (allTargets.Count == 0)
+    #endregion
+
+    public float smooth = 1.5f;
+    public Vector3 offset;
+
+    private Transform _ballTransform;
+    private Transform _playerTransform;
+
+    private void Start() {
+        _ballTransform = GameObject.Find("Ball").transform;
+    }
+
+    private void FixedUpdate() {
+        if (_ballTransform == null || _playerTransform == null)
             return;
 
         Move();
     }
 
-    private void Move() {
-        Vector3 centerPoint = GetCenterPoint();
-
-        float additionalY = centerPoint.x;
-        float additionalZ = centerPoint.z;
-        Vector3 additionalVector = new Vector3(0f, additionalY, additionalZ);
-
-        Vector3 newPosition = centerPoint + offset + additionalVector;
-
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+    public void Move() {
+        transform.position = Vector3.Slerp(transform.position, _playerTransform.position + offset, smooth * Time.deltaTime);
     }
 
-    private float GetGreatestDistance() {
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.size.magnitude;
-    }
-
-    private Vector3 GetCenterPoint() {
-        if (allTargets.Count == 1) {
-            return allTargets[0].position;
-        }
-
-        var bounds = new Bounds(allTargets[0].position, Vector3.zero);
-        for (int ii = 0; ii < allTargets.Count; ii++) {
-            bounds.Encapsulate(allTargets[ii].position);
-        }
-
-        return bounds.center;
+    public void SetTarget(Transform playerTarget) {
+        _playerTransform = playerTarget;
     }
 
 }    

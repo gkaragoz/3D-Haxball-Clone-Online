@@ -11,6 +11,9 @@ public class PlayerAnimation : MonoBehaviour {
     }
 
     private void Update() {
+        if (_playerController == null || _playerController.enabled == false)
+            return;
+
         _animator.SetFloat("Velocity", _playerController.GetVelocity());
     }
 

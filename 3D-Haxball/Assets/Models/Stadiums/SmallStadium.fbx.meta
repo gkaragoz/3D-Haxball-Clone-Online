@@ -1,0 +1,186 @@
+fileFormatVersion: 2
+guid: e97b12a5e0100db4d8e099fab6cf2276
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bush
+    100002: Bush.001
+    100004: Chairs
+    100006: Cone.002
+    100008: Floor
+    100010: GoalPost.002
+    100012: GoalPost.003
+    100014: Plane.002
+    100016: //RootNode
+    100018: Tree1.002
+    100020: Tree1.003
+    100022: Tree1.004
+    100024: Tree1.005
+    100026: Tree4
+    100028: Tree4.001
+    100030: Tree4.002
+    100032: Tree4.003
+    100034: Tree4.004
+    400000: Bush
+    400002: Bush.001
+    400004: Chairs
+    400006: Cone.002
+    400008: Floor
+    400010: GoalPost.002
+    400012: GoalPost.003
+    400014: Plane.002
+    400016: //RootNode
+    400018: Tree1.002
+    400020: Tree1.003
+    400022: Tree1.004
+    400024: Tree1.005
+    400026: Tree4
+    400028: Tree4.001
+    400030: Tree4.002
+    400032: Tree4.003
+    400034: Tree4.004
+    2100000: No Name
+    2100002: Green
+    2100004: Dark Brown
+    2100006: Dark Green
+    2100008: Direk
+    2100010: Material.001
+    2100012: White
+    2100014: Gray.001
+    2100016: SoftGreen
+    2100018: HardGreen
+    2100020: Pink
+    2300000: Bush
+    2300002: Bush.001
+    2300004: Chairs
+    2300006: Cone.002
+    2300008: Floor
+    2300010: GoalPost.002
+    2300012: GoalPost.003
+    2300014: Plane.002
+    2300016: Tree1.002
+    2300018: Tree1.003
+    2300020: Tree1.004
+    2300022: Tree1.005
+    2300024: Tree4
+    2300026: Tree4.001
+    2300028: Tree4.002
+    2300030: Tree4.003
+    2300032: Tree4.004
+    3300000: Bush
+    3300002: Bush.001
+    3300004: Chairs
+    3300006: Cone.002
+    3300008: Floor
+    3300010: GoalPost.002
+    3300012: GoalPost.003
+    3300014: Plane.002
+    3300016: Tree1.002
+    3300018: Tree1.003
+    3300020: Tree1.004
+    3300022: Tree1.005
+    3300024: Tree4
+    3300026: Tree4.001
+    3300028: Tree4.002
+    3300030: Tree4.003
+    3300032: Tree4.004
+    4300000: Plane.002
+    4300002: Tree1.005
+    4300004: Tree1.002
+    4300006: Tree4.004
+    4300008: Tree4.002
+    4300010: Tree4.001
+    4300012: GoalPost.003
+    4300014: Tree1.004
+    4300016: Tree1.003
+    4300018: Cone.002
+    4300020: Tree4.003
+    4300022: Tree4
+    4300024: Bush.001
+    4300026: Bush
+    4300028: Floor
+    4300030: GoalPost.002
+    4300032: Chairs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

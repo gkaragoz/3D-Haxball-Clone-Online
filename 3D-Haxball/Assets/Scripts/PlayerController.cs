@@ -1,47 +1,49 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerController : CharacterStats {
+public class PlayerController : MonoBehaviour {
+
+    public Player player;
 
     public float shootRange = 3f;
     public bool isShoting = false;
     public float stoppingTime = 0.5f;
     public const float slowingSpeedMultiplier = .75f;
 
-    public delegate void OnMultiplierThresholdChanged(float fillAmount, float rotationAmount);
-    public OnMultiplierThresholdChanged onMultiplierThresholdChangedCallback;
-
-    private float _minShotMultiplier = 1f;
+  
     [SerializeField]
     private float _maxShotMultiplier;
-    private float _currentShotMultiplier;
-    [SerializeField]
-    private float _multiplierThreshold = 10f;
-
+  
     private Rigidbody _rb;
     private BallController _ballController;
 
     private PlayerAnimation _playerAnimation;
     private Transform _startPosition;
 
+    private PlayerHUD _playerHUD;
+
     void Start () {
         _rb = GetComponent<Rigidbody>();
-        _ballController = BallController.instance;
+        _ballController = FindObjectOfType<BallController>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _startPosition = transform;
+        _playerHUD = GetComponentInChildren<PlayerHUD>();
 
-        CurrentSpeed = MovementSpeed;
+      
+        _maxShotMultiplier = 10f;
+      
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             ApplySlowMovement();
+            _playerHUD.EnableAim();
         }
-
-        if (Input.GetKey(KeyCode.Space)) {
-            ShotMultiplier();
-        } 
-
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _playerHUD.UpdateAim(GetAngleOfBall());
+        }
         if (Input.GetKeyUp(KeyCode.Space)) {
             ResetSpeed();
             Shot();
@@ -60,31 +62,20 @@ public class PlayerController : CharacterStats {
     }
 
     private void ApplySlowMovement() {
-        CurrentSpeed *= slowingSpeedMultiplier;
+        player.CurrentSpeed *= slowingSpeedMultiplier;
     }
 
     private void ResetSpeed() {
-        CurrentSpeed = MovementSpeed;
-    }
-
-    private void ShotMultiplier() {
-        UIManager.instance.EnableAim();
-        _currentShotMultiplier += _multiplierThreshold * Time.deltaTime;
-        if (_currentShotMultiplier >= _maxShotMultiplier) {
-            _currentShotMultiplier = _maxShotMultiplier;
-        }
-
-        if (onMultiplierThresholdChangedCallback != null)
-            onMultiplierThresholdChangedCallback.Invoke(_currentShotMultiplier, GetAngleOfBall());
+        player.CurrentSpeed = player.MovementSpeed;
     }
 
     private Vector2 GetInputAxis() {
-        return new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"),
-                            CrossPlatformInputManager.GetAxis("Vertical"));
+        return new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"),
+                            CrossPlatformInputManager.GetAxisRaw("Vertical"));
     }
 
     private void Move(Vector2 axis) {
-        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * CurrentSpeed;
+        Vector3 moveVec = new Vector3(axis.x, 0, axis.y) * player.CurrentSpeed;
         _rb.velocity = moveVec;
     }
 
@@ -106,21 +97,21 @@ public class PlayerController : CharacterStats {
             Vector3 shootDirection = ballPosition - transform.position;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(this, shootDirection, KickForce * _currentShotMultiplier, kickDistance);
+            _ballController.ApplyForce(this, shootDirection, player.KickForce * _maxShotMultiplier, kickDistance);
         }
 
         Invoke("Stop", stoppingTime);
         isShoting = true;
-        _currentShotMultiplier = _minShotMultiplier;
-        UIManager.instance.DisableAim();
+        _playerHUD.DisableAim();
         _playerAnimation.Shot();
     }
 
-    public float GetAngleOfBall() {
-        Vector3 targetDir = _ballController.transform.position - transform.position;
-        float angle = Vector3.Angle(targetDir, transform.forward);
+    public Transform GetAngleOfBall() {
+      //  Vector3 targetDir = _ballController.transform.position - transform.localPosition;
+      //  float angle = Vector3.Angle(targetDir, transform.forward);
 
-        return angle;
+   
+        return _ballController.transform;
     }
 
     public float GetDistanceOfBall() {

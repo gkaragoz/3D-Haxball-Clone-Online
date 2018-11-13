@@ -1,50 +1,110 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
+[System.Serializable]
 public class Room {
 
-    public string Name { get; set; }
-    public int MaxCapacity { get; set; }
-    public int CurrentCapacity { get; set; }
-    public int MaxRound { get; set; }
-    public Raund[] AllRaunds { get; set; }
-    public Raund CurrentRaund { get; set; }
-    public Team RedTeam { get; set; }
-    public Team BlueTeam { get; set; }
-    public bool IsPlaying { get; set; }
+    [Header("Room Properties")]
+    [SerializeField]
+    private string _name;
+    [SerializeField]
+    private int _maxCapacity;
+    [SerializeField]
+    private int _currentCapacity;
+    [SerializeField]
+    private int _raundTime;
+    [SerializeField]
+    private int _maxRaund;
+    [SerializeField]
+    private Team _redTeam;
+    [SerializeField]
+    private Team _blueTeam;
+    [SerializeField]
+    private bool _isPlaying;
 
-    public Room(string name, int maxCapacity, 
-        int currentCapacity, int maxRound, Raund[] allRaunds, int raundTime, Team redTeam, Team blueTeam) {
+    public string Name {
+        get { return _name; }
+        set { _name = value; }
+    }
 
-        this.Name = name;
+    public int MaxCapacity {
+        get { return _maxCapacity; }
+        set { _maxCapacity = value; }
+    }
+
+    public int CurrentCapacity {
+        get { return _currentCapacity; }
+        set { _currentCapacity = value; }
+    }
+
+    public int RaundTime {
+        get { return _raundTime; }
+        set { _raundTime = value; }
+    }
+
+    public int MaxRaund {
+        get { return _maxRaund; }
+        set { _maxRaund = value; }
+    }
+
+    public Team RedTeam {
+        get { return _redTeam; }
+        set { _redTeam = value; }
+    }
+
+    public Team BlueTeam {
+        get { return _blueTeam; }
+        set { _blueTeam = value; }
+    }
+
+    public bool IsPlaying {
+        get { return _isPlaying; }
+        set { _isPlaying = value; }
+    }
+
+    public Room(string name, int maxCapacity, int raundTime, int maxRaund) {
+        this.Name = name + "'s Room";
         this.MaxCapacity = maxCapacity;
-        this.CurrentCapacity = currentCapacity;
-        this.MaxRound = maxRound;
-        this.AllRaunds = allRaunds;
-        this.CurrentRaund = new Raund(raundTime);
-        this.RedTeam = redTeam;
-        this.BlueTeam = blueTeam;
+        this.RaundTime = raundTime;
+        this.MaxRaund = maxRaund;
+        this.CurrentCapacity = 0;
+        this.RedTeam = new Team("Red", true, maxCapacity);
+        this.BlueTeam = new Team("Blue", false, maxCapacity);
         this.IsPlaying = false;
     }
 
     public void KickPlayer(Team team, Player player) {
+        player.Room = null;
         team.RemovePlayer(player);
+        CurrentCapacity--;
     }
 
-    public void PlayerJoin(Team team, Player player) {
+    public void JoinPlayer(Team team, Player player) {
+        player.Room = this;
         team.AddPlayer(player);
+        CurrentCapacity++;
     }
 
-    public void StartRound() {
-        IsPlaying = true;
+    public bool IsAvailable() {
+        return CurrentCapacity >= MaxCapacity ? false : true;
     }
 
-    public void StopRaund() {
-        IsPlaying = false;
-    }
-
-    public void NextRaund() {
-        for (int ii = 0; ii < AllRaunds.Length; ii++) {
-
+    public Team GetAvailableTeam() {
+        if (BlueTeam.CurrentCapacity >= RedTeam.CurrentCapacity && !RedTeam.IsTeamFull()) {
+            return RedTeam;
+        } else if (!BlueTeam.IsTeamFull()){
+            return BlueTeam;
+        } else {
+            return null;
         }
     }
+
+    public List<Player> GetAllPlayers() {
+        return new List<Player>().Concat(RedTeam.AllPlayers)
+                                    .Concat(BlueTeam.AllPlayers)
+                                    .ToList();
+    }
+
 }
