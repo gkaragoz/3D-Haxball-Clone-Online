@@ -13,13 +13,9 @@ public class PlayerController : MonoBehaviour {
     public delegate void OnMultiplierThresholdChanged(float fillAmount, float rotationAmount);
     public OnMultiplierThresholdChanged onMultiplierThresholdChangedCallback;
 
-    private float _minShotMultiplier = 1f;
     [SerializeField]
     private float _maxShotMultiplier;
-    private float _currentShotMultiplier;
-    [SerializeField]
-    private float _multiplierThreshold = 10f;
-
+  
     private Rigidbody _rb;
     private BallController _ballController;
 
@@ -35,11 +31,9 @@ public class PlayerController : MonoBehaviour {
         _startPosition = transform;
         _playerHUD = GetComponentInChildren<PlayerHUD>();
 
-        _minShotMultiplier = 1f;
+      
         _maxShotMultiplier = 10f;
-        _currentShotMultiplier = _minShotMultiplier;
-        _multiplierThreshold = 10f;
-
+      
         player.CurrentSpeed = player.MovementSpeed;
     }
 
@@ -47,10 +41,6 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             ApplySlowMovement();
         }
-
-        if (Input.GetKey(KeyCode.Space)) {
-            ShotMultiplier();
-        } 
 
         if (Input.GetKeyUp(KeyCode.Space)) {
             ResetSpeed();
@@ -75,17 +65,6 @@ public class PlayerController : MonoBehaviour {
 
     private void ResetSpeed() {
         player.CurrentSpeed = player.MovementSpeed;
-    }
-
-    private void ShotMultiplier() {
-        _playerHUD.EnableAim();
-        _currentShotMultiplier += _multiplierThreshold * Time.deltaTime;
-        if (_currentShotMultiplier >= _maxShotMultiplier) {
-            _currentShotMultiplier = _maxShotMultiplier;
-        }
-
-        if (onMultiplierThresholdChangedCallback != null)
-            onMultiplierThresholdChangedCallback.Invoke(_currentShotMultiplier, GetAngleOfBall());
     }
 
     private Vector2 GetInputAxis() {
@@ -116,12 +95,11 @@ public class PlayerController : MonoBehaviour {
             Vector3 shootDirection = ballPosition - transform.position;
             float kickDistance = GetDistanceOfBall();
 
-            _ballController.ApplyForce(this, shootDirection, player.KickForce * _currentShotMultiplier, kickDistance);
+            _ballController.ApplyForce(this, shootDirection, player.KickForce * _maxShotMultiplier, kickDistance);
         }
 
         Invoke("Stop", stoppingTime);
         isShoting = true;
-        _currentShotMultiplier = _minShotMultiplier;
         _playerHUD.DisableAim();
         _playerAnimation.Shot();
     }
