@@ -10,12 +10,15 @@ public class PlayerHUD : MonoBehaviour {
 
     private void Start() {
         _playerController = GetComponent<PlayerController>();
-        _playerController.onMultiplierThresholdChangedCallback += UpdateAim;
+    //    _playerController.onMultiplierThresholdChangedCallback += UpdateAim;
     }
 
-    private void UpdateAim(float fillAmount, float rotationAmount) {
-        imgShot.fillAmount = fillAmount / 10f;
-        imgShot.rectTransform.localEulerAngles = Vector3.forward * rotationAmount;
+    public void UpdateAim( Transform target) {
+        // imgShot.fillAmount = fillAmount / 10f;
+        var lookPos = target.position - canvas.transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        canvas.transform.rotation = rotation;    
     }
 
     public void EnableAim() {

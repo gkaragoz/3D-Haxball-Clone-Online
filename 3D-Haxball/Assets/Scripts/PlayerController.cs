@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float stoppingTime = 0.5f;
     public const float slowingSpeedMultiplier = .75f;
 
-    public delegate void OnMultiplierThresholdChanged(float fillAmount, float rotationAmount);
-    public OnMultiplierThresholdChanged onMultiplierThresholdChangedCallback;
-
+  
     [SerializeField]
     private float _maxShotMultiplier;
   
@@ -40,8 +38,12 @@ public class PlayerController : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             ApplySlowMovement();
+            _playerHUD.EnableAim();
         }
-
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _playerHUD.UpdateAim(GetAngleOfBall());
+        }
         if (Input.GetKeyUp(KeyCode.Space)) {
             ResetSpeed();
             Shot();
@@ -104,11 +106,12 @@ public class PlayerController : MonoBehaviour {
         _playerAnimation.Shot();
     }
 
-    public float GetAngleOfBall() {
-        Vector3 targetDir = _ballController.transform.position - transform.position;
-        float angle = Vector3.Angle(targetDir, transform.forward);
+    public Transform GetAngleOfBall() {
+      //  Vector3 targetDir = _ballController.transform.position - transform.localPosition;
+      //  float angle = Vector3.Angle(targetDir, transform.forward);
 
-        return angle;
+   
+        return _ballController.transform;
     }
 
     public float GetDistanceOfBall() {
