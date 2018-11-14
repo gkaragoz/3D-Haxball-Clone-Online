@@ -17,14 +17,16 @@ public class LobbyManager : MonoBehaviour
     private class LobbyListValues
     {
         private string _name;
-        private string _players;
-        private string _pass;
-        private string _distance;
+        private int _currentPlayers;
+        private int _maxplayers;
+        private bool _pass;
+        private int _distance;
 
-        public LobbyListValues(string name, string players, string pass, string distance)
+        public LobbyListValues(string name, int currentPlayers, int maxplayers, bool pass, int distance)
         {
             _name = name;
-            _players = players;
+            _currentPlayers = currentPlayers;
+            _maxplayers = maxplayers;
             _pass = pass;
             _distance = distance;
         }
@@ -42,20 +44,33 @@ public class LobbyManager : MonoBehaviour
             }
         }
 
-        public string Players
+        public int CurrentPlayers
         {
             get
             {
-                return _players;
+                return _currentPlayers;
             }
 
             set
             {
-                _players = value;
+                _currentPlayers = value;
             }
         }
 
-        public string Pass
+        public int Maxplayers
+        {
+            get
+            {
+                return _maxplayers;
+            }
+
+            set
+            {
+                _maxplayers = value;
+            }
+        }
+
+        public bool Pass
         {
             get
             {
@@ -68,7 +83,7 @@ public class LobbyManager : MonoBehaviour
             }
         }
 
-        public string Distance
+        public int Distance
         {
             get
             {
@@ -80,50 +95,101 @@ public class LobbyManager : MonoBehaviour
                 _distance = value;
             }
         }
-
     }
     private void Start()
     {
 
         _listValues = new List<LobbyListValues>();
-        _listValues.Add(new LobbyListValues("Cihat", "15/16", "Yes", "15"));
-        _listValues.Add(new LobbyListValues("Behçet", "15/16", "Yes", "15"));
-        _listValues.Add(new LobbyListValues("Gökhan", "15/16", "Yes", "15"));
-        _listValues.Add(new LobbyListValues("Tunay", "15/16", "No", "15"));
-        _listValues.Add(new LobbyListValues("DEnme", "15/16", "No", "15"));
-        _listValues.Add(new LobbyListValues("Zibil", "15/16", "No", "15"));
-        _listValues.Add(new LobbyListValues("Cihat6", "15/16", "Yes", "15"));
+        _lobbyList = new List<GameObject>();
 
-        RefreshList(_listValues);
+        _listValues.Add(new LobbyListValues("Cihat",1,2, true, 15));
+        _listValues.Add(new LobbyListValues("Behçet", 1,5, true, 0));
+        _listValues.Add(new LobbyListValues("Gökhan", 2,10, true, 62));
+        _listValues.Add(new LobbyListValues("Tunay", 1,16, false, 37));
+        _listValues.Add(new LobbyListValues("DEnme", 1,20, false, 2));
+        _listValues.Add(new LobbyListValues("Zibil", 2,4, true, 17));
+        _listValues.Add(new LobbyListValues("Cihat6",1,15, true, 27));
+
+        RefreshList();
        
-
     }
     
     public void SortName()
     {
         var sortedList = _listValues.OrderBy(go => go.Name).ToList();
-
-        RefreshList(sortedList);
-       
+        if (_listValues.SequenceEqual(sortedList))
+        {
+            _listValues = _listValues.OrderByDescending(go => go.Name).ToList();
+        }
+        else {
+            _listValues = sortedList;
+        }
+        RefreshList();
     }
-
-    private void RefreshList(List<LobbyListValues> sortedList)
+    public void SortPlayer()
     {
       
+        var sortedList = _listValues.OrderBy(go => (float)go.CurrentPlayers / (float)go.Maxplayers).ToList();
+        if (_listValues.SequenceEqual(sortedList))
+        {
+            _listValues = _listValues.OrderByDescending(go => (float)go.CurrentPlayers / (float)go.Maxplayers).ToList();
+        }
+        else
+        {
+            _listValues = sortedList;
+        }
+        RefreshList();
+    }
+
+    public void SortPass()
+    {
+        var sortedList = _listValues.OrderBy(go => go.Pass).ToList();
+        if (_listValues.SequenceEqual(sortedList))
+        {
+            _listValues = _listValues.OrderByDescending(go => go.Pass).ToList();
+        }
+        else
+        {
+            _listValues = sortedList;
+        }
+        RefreshList();
+    }
+
+    public void SortDistance()
+    {
+        var sortedList = _listValues.OrderBy(go => go.Distance).ToList();
+        if (_listValues.SequenceEqual(sortedList))
+        {
+            _listValues = _listValues.OrderByDescending(go => go.Distance).ToList();
+        }
+        else
+        {
+            _listValues = sortedList;
+        }
+        RefreshList();
+    }
+
+    private void RefreshList()
+    {
+
+        foreach (var item in _lobbyList)
+        {
+            Destroy(item);
+        }
         foreach (var item in _listValues)
         {
             GameObject LobbyList = (GameObject)Instantiate(LobbyListPrefab);
             LobbyList.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = item.Name;
-            LobbyList.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = item.Players;
-            LobbyList.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = item.Pass;
-            LobbyList.transform.GetChild(0).GetChild(3).GetComponent<Text>().text = item.Distance;
+            LobbyList.transform.GetChild(0).GetChild(1).GetComponent<Text>().text = item.CurrentPlayers+"/"+item.Maxplayers;
+            LobbyList.transform.GetChild(0).GetChild(2).GetComponent<Text>().text = item.Pass.ToString();
+            LobbyList.transform.GetChild(0).GetChild(3).GetComponent<Text>().text = item.Distance+" km";
 
             LobbyList.name = item.Name;
             LobbyList.transform.SetParent(ListElement);
 
             LobbyList.GetComponent<Toggle>().onValueChanged.AddListener(ifselect => { if (ifselect) OnToggleValueChanged(LobbyList.GetComponent<Toggle>()); });
 
-            //_lobbyList.Add(LobbyList);
+            _lobbyList.Add(LobbyList);
         }
     }
 
